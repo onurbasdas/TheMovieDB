@@ -20,13 +20,13 @@ class UpComingCell: UITableViewCell {
     @IBOutlet var upComingTitle: UILabel!
     @IBOutlet var upComingDetail: UILabel!
     @IBOutlet var upComingDate: UILabel!
+    @IBOutlet var upComingBottomLine: UIView!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
         upComingDetail.numberOfLines = 2
         upComingPhoto.layer.cornerRadius = 8
-        // Initialization code
     }
     
     func loadData(data: UpComingResult?) {
@@ -42,8 +42,6 @@ class UpComingCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
     
     func dateFormatterHour(dateString: String) -> String {
