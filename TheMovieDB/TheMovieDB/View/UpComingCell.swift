@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class UpComingCell: UITableViewCell {
     
@@ -24,14 +25,19 @@ class UpComingCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         upComingDetail.numberOfLines = 2
+        upComingPhoto.layer.cornerRadius = 8
         // Initialization code
     }
     
     func loadData(data: UpComingResult?) {
-        upComingTitle.text = data?.title
-        upComingDetail.text = data?.overview
-        upComingDate.text = dateFormatterHour(dateString: data?.release_date ?? "")
-        
+        if let data = data {
+            upComingTitle.text = data.title
+            upComingDetail.text = data.overview
+            upComingDate.text = dateFormatterHour(dateString: data.release_date ?? "")
+            let url = URL(string: Constants.imageURL + "\(data.backdrop_path ?? "")")
+            upComingPhoto.kf.setImage(with: url)
+            
+        }
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -44,7 +50,7 @@ class UpComingCell: UITableViewCell {
         let dateFormatterGet = DateFormatter()
         dateFormatterGet.dateFormat = "yyyy-MM-dd"
         let dateFormatterPrint = DateFormatter()
-        dateFormatterPrint.dateFormat = "dd-MM-yyyy"
+        dateFormatterPrint.dateFormat = "dd.MM.yyyy"
         
         if let date = dateFormatterGet.date(from: dateString) {
             return (dateFormatterPrint.string(from: date))
